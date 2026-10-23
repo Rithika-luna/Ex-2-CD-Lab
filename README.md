@@ -32,6 +32,47 @@
 7.	Compile that file with C compiler and verify the output.
 
 # INPUT
+```
+
+int a = 10;
+float b = 20;
+
+```
+# PROGRAM
+```
+
+%{
+#include <stdio.h>
+%}
+
+%%
+int|float|char|if|else|return    { printf("Keyword: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*          { printf("Identifier: %s\n", yytext); }
+[0-9]+                          { printf("Number: %s\n", yytext); }
+[+\-*/=<>]                      { printf("Operator: %s\n", yytext); }
+[(){};,]                        { printf("Special Symbol: %s\n", yytext); }
+[ \t\n]+                        ;
+.                               { printf("Unknown: %s\n", yytext); }
+%%
+
+int main()
+{
+    printf("Enter the input:\n");
+    yylex();
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}
+
+```
+
 # OUTPUT
+
+<img width="1917" height="1063" alt="image" src="https://github.com/user-attachments/assets/af68be4e-7b39-4b77-b9ea-eacfcacd872a" />
+
+
 # RESULT
 ## The lexical analyzer is implemented using lex and the output is verified.
